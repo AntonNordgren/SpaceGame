@@ -1,0 +1,16 @@
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: rgb(14, 10, 39);
+}
+
+#game * {
+    position: relative;
+    border: solid white 2px;
+    margin: auto;
+    top: 50px;
+}

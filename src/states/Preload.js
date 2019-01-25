@@ -23,13 +23,12 @@ export default class Preload {
     //do all your loading here
     //this.load.image('player', 'assets/images/player.png'); //width and height of sprite
 
-    this.load.image('player', 'assets/images/arrow.png');
+    this.load.image('startButton', 'assets/images/startButton.png');
+
     this.load.image('bg', 'assets/images/bg.jpg');
     this.load.image('space', 'assets/images/space.png');
-    this.load.image('reddude', 'assets/images/reddude.png');
     this.load.image('playerBullet', 'assets/images/playerBullet.png');
     this.load.image('enemyBullet', 'assets/images/playerBullet.png');
-    this.load.image('enemy', 'assets/images/enemy.png');
 
     this.load.image('heroship', 'assets/images/heroship.png');
 
@@ -46,12 +45,13 @@ export default class Preload {
     this.load.audio('explosion', 'assets/audio/explosion.mp3');
 
     this.load.image('gameOverScreen', 'assets/images/GameOverScreen.png');
-    this.load.image('startScreen', 'assets/images/StartScreen.png');
 
     this.load.image('boulder', 'assets/images/boulder.png');
     this.load.image('smallRock', 'assets/images/smallRock.png');
 
     this.load.image('seeker', 'assets/images/seeker.png');
+
+    this.load.image('redSpace', 'assets/images/redSpace.jpg');
 
     //staaaart load
     this.load.start();
@@ -60,7 +60,7 @@ export default class Preload {
   update() {
 
     if(this.ready) {
-      this.game.state.start('game');
+      this.game.state.start('startScreen');
     }
 
   }

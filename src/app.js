@@ -1,4 +1,4 @@
-var game;
+let game;
 
 import Boot from "./states/Boot.js";
 import Preload from "./states/Preload.js";

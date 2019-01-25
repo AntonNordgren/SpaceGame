@@ -13,6 +13,7 @@ export default class Game extends Phaser.State {
   create() {
     this.birdSpawnChance = .01;
     this.boulderSpawnChance = .01;
+    this.seekerSpawnChance = .01;
     this.score = 0;
 
     this.game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -37,10 +38,8 @@ export default class Game extends Phaser.State {
     this.boulderExplosions.maxParticleScale = 0.3;
     this.boulderExplosions.setAlpha(1, .5, 2000);
 
-    this.UILayer = this.add.group();
-
     this.scoreField = new NumberBox(this.game, "circle", 0);
-
+    this.UILayer = this.add.group();
     this.UILayer.add(this.scoreField);
 
     this.game.load.audio('chicken', 'assets/audio/chicken.mp3');
@@ -50,9 +49,6 @@ export default class Game extends Phaser.State {
     this.game.load.audio('explosion', 'assets/audio/explosion.mp3');
     this.explosion = this.game.add.audio('explosion');
     this.explosion.volume = .25;
-
-    let testSeeker = new Seeker(this.game, 100, 100, this.player);
-    this.enemies.add(testSeeker);
 
     /*
     this.music = this.game.add.audio('music');
@@ -81,6 +77,10 @@ export default class Game extends Phaser.State {
       this.enemies.add(enemy);
     }
 
+    if(Math.random() < this.seekerSpawnChance) {
+      let enemy = new Seeker(this.game, (Math.random() * 700), this.game.height + 100, this.player);
+      this.enemies.add(enemy);
+    }
 
     if (Math.random() < .0001) {
       this.birdSpawnChance += 0.05;
@@ -109,7 +109,6 @@ export default class Game extends Phaser.State {
       this.birdExplosions.y = enemy.y;
 
       this.birdExplosions.explode(1000, 10);
-
     }
 
     enemy.kill();
@@ -125,7 +124,7 @@ export default class Game extends Phaser.State {
     enemyRef.kill();
 
     if (this.player.health.current <= 0) {
-      this.game.state.start('gameOver');
+      this.game.state.start('gameOver', 1, 1, this.score);
     }
 
   }
