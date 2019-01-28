@@ -1,22 +1,20 @@
-
-import Menu from "../prefabs/Menu.js";
-
 export default class StartScreen extends Phaser.State {
+
+    init() {
+    }
 
     create() {
         this.bg = this.add.tileSprite(0, 0, 1024, 768, 'space');
-        // this.menu = new Menu(this.game);
-
-        /*
-        this.button = this.game.add.button(this.game.width / 2 - 50, this.game.height / 3 - 30, 'startButton', () => {
+        this.startButton = this.game.add.button(this.game.world.centerX, this.game.height / 3, 'startButton', () => {
             this.game.state.start('game');
         }, this, 1, 1, 1);
-        */
-       this.button = this.game.add.button(this.game.world.centerX, this.game.height / 3, 'startButton', () => {
-           this.game.state.start('game');
+        this.startButton.anchor.set(0.5);
+
+        this.highscoreButton = this.game.add.button(this.game.world.centerX, this.game.height / 2, 'highscoreButton', () => {
+            this.game.state.start('highScore');
         }, this, 1, 1, 1);
-        this.button.anchor.set(0.5);
-        // this.button.scale.setTo(1.5);
+        this.highscoreButton.anchor.set(0.5);
+        this.highscoreButton.scale.setTo(.2);
     }
 
     update() {

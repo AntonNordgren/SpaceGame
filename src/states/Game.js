@@ -11,6 +11,69 @@ export default class Game extends Phaser.State {
   }
 
   create() {
+
+    this.highScoreList = [];
+    this.highestScore;
+    this.lowestScore;
+
+    this.playerName = 'Anton';
+
+    this.firebase = require('firebase');
+    if (!this.firebase.apps.length) {
+      this.config = {
+        apiKey: "AIzaSyDpvw9J4NQ1_l_U7OuzxLSXBBwfGZXUU2g",
+        authDomain: "space-game-71f80.firebaseapp.com",
+        databaseURL: "https://space-game-71f80.firebaseio.com",
+        projectId: "space-game-71f80",
+        storageBucket: "space-game-71f80.appspot.com",
+        messagingSenderId: "491452084447"
+      }
+      this.firebase.initializeApp(this.config);
+    }
+
+    this.findLowestScore = (list) => {
+      let lowest = list[0].score;
+      for (let i = 1; i < list.length; i++) {
+        if (list[i].score < lowest) {
+          lowest = list[i].score;
+        }
+      }
+      return lowest;
+    }
+
+    this.findHighestScore = (list) => {
+      let highest = list[0].score;
+      for (let i = 1; i < list.length; i++) {
+        if (list[i].score > highest) {
+          highest = list[i].score;
+        }
+      }
+      return highest;
+    }
+
+    this.firebase.database().ref('/players').orderByChild("score").once("value").then((snapshot) => {
+
+      if (snapshot.val() != null) {
+        snapshot.forEach((player) => {
+          this.highScoreList.push(player.val());
+        });
+  
+        console.log(this.highScoreList);
+  
+        this.highestScore = this.findHighestScore(this.highScoreList);
+        this.lowestScore = this.findLowestScore(this.highScoreList);
+  
+        console.log("Highest: " + this.highestScore);
+        console.log("Lowest: " + this.lowestScore);
+      }
+      else {
+        this.highestScore = undefined;
+        this.lowestScore = undefined;
+      }
+
+
+    });
+
     this.birdSpawnChance = .01;
     this.boulderSpawnChance = .01;
     this.seekerSpawnChance = .01;
@@ -72,12 +135,12 @@ export default class Game extends Phaser.State {
 
     }
 
-    if(Math.random() < this.boulderSpawnChance) {
+    if (Math.random() < this.boulderSpawnChance) {
       let enemy = new Boulder(this.game, (Math.random() * 700), -100);
       this.enemies.add(enemy);
     }
 
-    if(Math.random() < this.seekerSpawnChance) {
+    if (Math.random() < this.seekerSpawnChance) {
       let enemy = new Seeker(this.game, (Math.random() * 700), this.game.height + 100, this.player);
       this.enemies.add(enemy);
     }
@@ -124,7 +187,19 @@ export default class Game extends Phaser.State {
     enemyRef.kill();
 
     if (this.player.health.current <= 0) {
-      this.game.state.start('gameOver', 1, 1, this.score);
+
+      console.log(this.highScoreList.length);
+
+      if (this.score > this.lowestScore || this.lowestScore === undefined || this.highScoreList.length < 5) {
+
+        this.game.state.start('newHighScore', 1, 1, this.score);
+
+      }
+      else {
+        this.game.state.start('gameOver', 1, 1, this.score);
+
+      }
+
     }
 
   }

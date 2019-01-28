@@ -53,6 +53,15 @@ export default class Preload {
 
     this.load.image('redSpace', 'assets/images/redSpace.jpg');
 
+    this.load.image('highScoreBg', 'assets/images/milkyway.jpeg');
+    this.load.image('highscoreButton', 'assets/images/highscoreButton.png');
+
+    this.load.image('backButton', 'assets/images/backButton.png');
+
+    this.load.image('purpleSpace', 'assets/images/purpleSpace.jpg');
+
+    this.load.image('submitButton', 'assets/images/submitButton.png');
+
     //staaaart load
     this.load.start();
   }
