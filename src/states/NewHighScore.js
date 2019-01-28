@@ -59,17 +59,29 @@ export default class NewHighScore extends Phaser.State {
                         this.highScoreList.push(player.val());
                     });
 
-                    console.log(this.highScoreList);
-
+                    
                     this.highScoreList.reverse();
                     this.firebase.database().ref('/players').remove();
+                    
+                    console.log(this.highScoreList.length);
 
-                    for (let i = 0; i < 5; i++) {
-                        this.firebase.database().ref('/players').push({
-                            name: this.highScoreList[i].name,
-                            score: this.highScoreList[i].score,
-                        })
+                    if(this.highScoreList.length < 5) {
+                        for (let i = 0; i < this.highScoreList.length; i++) {
+                            this.firebase.database().ref('/players').push({
+                                name: this.highScoreList[i].name,
+                                score: this.highScoreList[i].score,
+                            })
+                        }
                     }
+                    else {
+                        for (let i = 0; i < 5; i++) {
+                            this.firebase.database().ref('/players').push({
+                                name: this.highScoreList[i].name,
+                                score: this.highScoreList[i].score,
+                            })
+                        }
+                    }
+
 
                 }).then(() => {
                     this.game.state.start('startScreen');

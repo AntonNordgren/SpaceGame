@@ -4,7 +4,7 @@ export default class StartScreen extends Phaser.State {
     }
 
     create() {
-        this.bg = this.add.tileSprite(0, 0, 1024, 768, 'space');
+        this.bg = this.add.tileSprite(0, 0, 1024, 768, 'space2');
         this.startButton = this.game.add.button(this.game.world.centerX, this.game.height / 3, 'startButton', () => {
             this.game.state.start('game');
         }, this, 1, 1, 1);
@@ -19,7 +19,7 @@ export default class StartScreen extends Phaser.State {
 
     update() {
 
-        this.bg.tilePosition.y -= .5;
+        // this.bg.tilePosition.y -= .5;
 
         if (this.game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)) {
             this.game.state.start('game');

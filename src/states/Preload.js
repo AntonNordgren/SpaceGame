@@ -61,6 +61,7 @@ export default class Preload {
     this.load.image('purpleSpace', 'assets/images/purpleSpace.jpg');
 
     this.load.image('submitButton', 'assets/images/submitButton.png');
+    this.load.image('space2', 'assets/images/space.jpg');
 
     //staaaart load
     this.load.start();
