@@ -23,7 +23,7 @@ export default class NewHighScore extends Phaser.State {
         this.bg = this.add.tileSprite(0, 0, 1024, 768, 'purpleSpace');
 
         let HighScoreText = this.game.add.text(this.game.world.centerX, this.game.world.centerY - 150, "HighScore!",
-            { font: "100px Arial", align: "center", fill: "yellow" });
+            { font: "100px Arial", align: "center", fill: "#FFF" });
         HighScoreText.anchor.set(0.5);
 
         this.game.add.plugin(Fabrique.Plugins.InputField);
