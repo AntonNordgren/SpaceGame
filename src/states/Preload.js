@@ -38,13 +38,9 @@ export default class Preload {
 
     this.load.image('feather', 'assets/images/feather.png');
 
-    this.load.audio('pew', 'assets/audio/pew2.mp3');
     this.load.audio('chicken', 'assets/audio/chicken.mp3');
 
-    this.load.audio('music', 'assets/audio/HorribleSong.mp3');
     this.load.audio('explosion', 'assets/audio/explosion.mp3');
-
-    this.load.image('gameOverScreen', 'assets/images/GameOverScreen.png');
 
     this.load.image('boulder', 'assets/images/boulder.png');
     this.load.image('smallRock', 'assets/images/smallRock.png');
