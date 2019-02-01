@@ -1,1 +1,0 @@
-web: node build/scripts/app.js
