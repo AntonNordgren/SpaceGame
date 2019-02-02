@@ -40,6 +40,8 @@ export default class Preload {
 
     this.load.audio('chicken', 'assets/audio/chicken.mp3');
 
+    this.load.audio('pew', 'assets/audio/pew.mp3');
+
     this.load.audio('explosion', 'assets/audio/explosion.mp3');
 
     this.load.image('boulder', 'assets/images/boulder.png');
