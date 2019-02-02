@@ -26,8 +26,6 @@ export default class NewHighScore extends Phaser.State {
             { font: "100px Arial", align: "center", fill: "#FFF" });
         HighScoreText.anchor.set(0.5);
 
-        // this.game.add.plugin(Fabrique.Plugins.InputField);
-        // this.game.add.plugin(PhaserInput.Plugin);
         this.inputField = this.game.add.inputField(this.game.world.centerX - 80, this.game.world.centerY - 50, {
             font: '18px Arial',
             fill: '#212121',
