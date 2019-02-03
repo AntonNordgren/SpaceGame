@@ -1,12 +1,11 @@
 export default class NewHighScore extends Phaser.State {
-
+    
     init(highScore) {
         this.highScore = highScore;
         console.log(this.highScore);
     }
-
+    
     create() {
-
         this.firebase = require('firebase');
         if (!this.firebase.apps.length) {
             this.config = {
