@@ -1,8 +1,7 @@
-/*
 const express = require('express');
 
 const path = require('path');
-const port = process.env.PORT || '0.0.0.0';
+// const port = process.env.PORT || '0.0.0.0' || 9001;
 
 const app = express();
 
@@ -16,7 +15,6 @@ app.get('/*', function (req, res) {
   res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 
-app.listen(port, (err) => {
-  console.log('Started liste')
+app.listen(process.env.PORT, '0.0.0.0', function(err) {
+  console.log("Started listening on %s", app.url);
 });
-*/
