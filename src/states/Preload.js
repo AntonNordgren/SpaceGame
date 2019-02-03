@@ -61,6 +61,8 @@ export default class Preload {
     this.load.image('submitButton', 'assets/images/submitButton.png');
     this.load.image('space2', 'assets/images/space.jpg');
 
+    this.game.plugins.add(new PhaserInput.Plugin);
+
     //staaaart load
     this.load.start();
   }
