@@ -2,6 +2,7 @@ export default class NewHighScore extends Phaser.State {
     
     init(highScore) {
         this.highScore = highScore;
+        this.game.add.plugin(PhaserInput.Plugin);
     }
     
     create() {
@@ -26,7 +27,6 @@ export default class NewHighScore extends Phaser.State {
 
         // console.log(PhaserInput.Plugin);
 
-        this.inputField = this.game.add.plugin(PhaserInput.Plugin);
         this.inputField = this.game.add.inputField(this.game.world.centerX - 80, this.game.world.centerY - 50, {
             font: '18px Arial',
             fill: '#212121',
