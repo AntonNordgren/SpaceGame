@@ -16,8 +16,6 @@ export default class Game extends Phaser.State {
     this.highestScore;
     this.lowestScore;
 
-    this.playerName = 'Anton';
-
     this.firebase = require('firebase');
     if (!this.firebase.apps.length) {
       this.config = {
@@ -87,7 +85,6 @@ export default class Game extends Phaser.State {
     this.game.add.existing(this.player);
 
     this.enemies = this.add.group();
-    // this.enemyBullets = this.add.group();
 
     this.birdExplosions = this.game.add.emitter(0, 1, 100);
     this.birdExplosions.makeParticles('feather');
@@ -112,17 +109,9 @@ export default class Game extends Phaser.State {
     this.game.load.audio('explosion', 'assets/audio/explosion.mp3');
     this.explosion = this.game.add.audio('explosion');
     this.explosion.volume = .25;
-
-    /*
-    this.music = this.game.add.audio('music');
-    this.music.play('', 0, .5, true);
-    */
   }
 
   update() {
-
-    this.bg.tilePosition.x -= .1;
-    this.bg.tilePosition.y += .2;
 
     if (Math.random() < this.birdSpawnChance) {
 
@@ -153,6 +142,10 @@ export default class Game extends Phaser.State {
     this.physics.arcade.overlap(this.enemies, this.bullets, this.damageEnemy, null, this);
     this.physics.arcade.overlap(this.player, this.enemies, this.damagePlayer, null, this);
 
+  }
+
+  render() {
+    // this.enemies.forEachAlive(this.game.debug.body, this.game.debug, "yellow", false);
   }
 
   damageEnemy(enemy, bullet) {
@@ -199,9 +192,6 @@ export default class Game extends Phaser.State {
         this.game.state.start('gameOver', 1, 1, this.score);
 
       }
-
     }
-
   }
-
 }

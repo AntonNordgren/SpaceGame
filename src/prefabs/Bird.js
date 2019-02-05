@@ -15,15 +15,20 @@ export default class Bird extends Phaser.Sprite {
 		this.animations.play("fly", 14, true);
 
 		this.anchor.setTo(.5, .5);
+
 		
 		if (Math.random() <= .5) {
+			// right to left
 			this.scale.setTo(-.5, .5);
 			this.body.x + 183;
 			this.body.velocity.x = -175;
+			this.body.setSize(80, 80, -5, 5);
 		}
 		else {
+			// left to right
 			this.scale.setTo(.5, .5);
 			this.body.velocity.x = 175;
+			this.body.setSize(80, 80, 5, 5);
 		}
 
 	}

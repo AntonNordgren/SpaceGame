@@ -68,7 +68,7 @@ export default class Preload {
   update() {
 
     if(this.ready) {
-      this.game.state.start('startScreen');
+      this.game.state.start('game');
     }
 
   }

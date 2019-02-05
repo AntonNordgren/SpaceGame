@@ -8,6 +8,8 @@ export default class Seeker extends Phaser.Sprite {
         this.anchor.setTo(.5, .5);
         this.scale.setTo(.2, .2);
         this.player = player;
+        
+        this.body.setSize(150, 150, 0, 0);
     }
 
     update() {
