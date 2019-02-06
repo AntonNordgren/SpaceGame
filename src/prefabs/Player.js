@@ -5,8 +5,8 @@ export default class Player extends Phaser.Sprite {
     super(game, x, y, 'heroship', 0);
 
     this.game.physics.enable(this, Phaser.Physics.ARCADE);
-    this.body.drag.x = 150;
-    this.body.drag.y = 150;
+    this.body.drag.x = 250;
+    this.body.drag.y = 250;
     this.body.collideWorldBounds = true;
     
     this.speed = 200;
@@ -27,6 +27,8 @@ export default class Player extends Phaser.Sprite {
     this.pew.volume = .05;
 
     this.health = { current: 1, max: 1 };
+
+    this.body.setSize(25, 25, 0, 0);
 
   }
 

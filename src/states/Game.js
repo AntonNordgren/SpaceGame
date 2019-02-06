@@ -145,6 +145,7 @@ export default class Game extends Phaser.State {
   }
 
   render() {
+    // this.game.debug.body(this.player);
     // this.enemies.forEachAlive(this.game.debug.body, this.game.debug, "yellow", false);
   }
 
