@@ -33,11 +33,6 @@ export default class HighScore extends Phaser.State {
             let indentation = 130;
             let rank = 1;
 
-            /*
-            this.highScoreList.map((player => { 
-            }));
-            */
-
             for(let i = 0; i < this.highScoreList.length; i++) {
                 let highScoreText = this.game.add.text(this.game.world.centerX, indentation, rank + ". " + this.highScoreList[i].name + " - score: " + this.highScoreList[i].score, textStyle);
                 highScoreText.anchor.set(0.5);
