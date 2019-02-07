@@ -1,34 +1,24 @@
 export default class Bird extends Phaser.Sprite {
 
-	constructor(game, x, y, bulletLayer, frame) {
-		super(game, x, y, 'bird', frame);
+	constructor(game, x, y, side, frame,) {
+		super(game, x, y, 'enemyUfo', frame);
 
 		this.game.physics.enable(this, Phaser.Physics.ARCADE);
-
 		this.bounceTick = Math.random() * 2;
-
-		this.bulletLayer = bulletLayer;
-
 		this.outOfBoundsKill = true;
-
-		this.animations.add("fly");
-		this.animations.play("fly", 14, true);
-
 		this.anchor.setTo(.5, .5);
-
+		// this.body.setSize(50, 50, 0, 0);
 		
-		if (Math.random() <= .5) {
+		if (side === 'left') {
 			// right to left
-			this.scale.setTo(-.5, .5);
-			this.body.x + 183;
+			this.scale.setTo(-.35, .35);
 			this.body.velocity.x = -175;
-			this.body.setSize(80, 80, -5, 5);
 		}
-		else {
+		else if(side === 'right') {
 			// left to right
-			this.scale.setTo(.5, .5);
+			this.scale.setTo(.35, .35);
+			// this.scale.setTo(0, 0);
 			this.body.velocity.x = 175;
-			this.body.setSize(80, 80, 5, 5);
 		}
 
 	}

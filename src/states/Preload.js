@@ -10,7 +10,6 @@ export default class Preload {
   }
 
   create() {
-
     //background for game
     this.add.sprite(0,0, "loading_bg");
 
@@ -25,7 +24,6 @@ export default class Preload {
 
     this.load.image('startButton', 'assets/images/startButton.png');
 
-    this.load.image('bg', 'assets/images/bg.jpg');
     this.load.image('space', 'assets/images/space.png');
     this.load.image('playerBullet', 'assets/images/playerBullet.png');
     this.load.image('enemyBullet', 'assets/images/playerBullet.png');
@@ -49,9 +47,9 @@ export default class Preload {
 
     this.load.image('seeker', 'assets/images/seeker.png');
 
-    this.load.image('redSpace', 'assets/images/redSpace.jpg');
+    this.load.image('redSpace', 'assets/images/ulukai/10.png');
 
-    this.load.image('highScoreBg', 'assets/images/milkyway.jpeg');
+    this.load.image('highScoreBg', 'assets/images/ulukai/3.png');
     this.load.image('highscoreButton', 'assets/images/highscoreButton.png');
 
     this.load.image('backButton', 'assets/images/backButton.png');
@@ -59,7 +57,9 @@ export default class Preload {
     this.load.image('purpleSpace', 'assets/images/purpleSpace.jpg');
 
     this.load.image('submitButton', 'assets/images/submitButton.png');
-    this.load.image('space2', 'assets/images/space.jpg');
+    this.load.image('startScreenBG', 'assets/images/space.png');
+
+    this.load.image('enemyUfo', 'assets/images/enemyUfo.png');
 
     //staaaart load
     this.load.start();

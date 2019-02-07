@@ -28,7 +28,8 @@ export default class Player extends Phaser.Sprite {
 
     this.health = { current: 1, max: 1 };
 
-    this.body.setSize(25, 25, 0, 0);
+    this.scale.setTo(.6, .6);
+    this.body.setSize(60, 60, 0, 0);
 
   }
 

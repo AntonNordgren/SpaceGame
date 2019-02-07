@@ -1,11 +1,7 @@
 export default class HighScore extends Phaser.State {
 
-    init(firebase) {
-        // this.firebase = firebase;
-    }
-
     create() {
-
+        
         this.firebase = require('firebase');
         if(!this.firebase.apps.length) {
             this.config = {
@@ -29,7 +25,7 @@ export default class HighScore extends Phaser.State {
             });
             this.highScoreList.reverse();
 
-            let textStyle = { font: "40px Arial", align: "center", fill: "yellow" };
+            let textStyle = { font: "50px Arial", align: "center", fill: "yellow" };
             let indentation = 130;
             let rank = 1;
 

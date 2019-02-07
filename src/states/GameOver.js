@@ -1,5 +1,4 @@
 export default class GameOver extends Phaser.State {
-    
     init(score) {
         this.score = score;
     }

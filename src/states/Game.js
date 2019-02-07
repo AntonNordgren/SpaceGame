@@ -113,30 +113,53 @@ export default class Game extends Phaser.State {
 
   update() {
 
+    // Bird
     if (Math.random() < this.birdSpawnChance) {
 
-      if (Math.random() <= .5) {
-        this.enemies.add(new Bird(this.game, -100, Math.random() * this.game.height));
+      let side = Math.random();
+
+      if (side <= .5) {
+        this.enemies.add(new Bird(this.game, -300, Math.random() * this.game.height, 'right'));
       }
       else {
-        this.enemies.add(new Bird(this.game, this.game.width + 100 + (Math.random() * 400), Math.random() * this.game.height));
+        this.enemies.add(new Bird(this.game, this.game.width + 100, Math.random() * this.game.height, 'left'));
       }
 
     }
 
+    // Boudler
     if (Math.random() < this.boulderSpawnChance) {
-      let enemy = new Boulder(this.game, (Math.random() * 700), -100);
+      let enemy = new Boulder(this.game, (Math.random() * 800), -100);
       this.enemies.add(enemy);
     }
 
+    // Seeker
     if (Math.random() < this.seekerSpawnChance) {
-      let enemy = new Seeker(this.game, (Math.random() * 700), this.game.height + 100, this.player);
-      this.enemies.add(enemy);
+      let enemy;
+      let side = Math.random();
+
+      if(side <= .25) {
+        enemy = new Seeker(this.game, (Math.random() * 800), -100, this.player);
+        this.enemies.add(enemy);
+      }
+      else if(side <= .5 && side >= .25) {
+        enemy = new Seeker(this.game, (Math.random() * 800), this.game.height + 100, this.player);
+        this.enemies.add(enemy);
+      }
+      else if(side <= .75 && side >= .5) {
+        enemy = new Seeker(this.game, -100, (Math.random() * 800), this.player);
+        this.enemies.add(enemy);
+      }
+      else if(side <= 1 && side >= .75) {
+        enemy = new Seeker(this.game, this.game.width + 100, (Math.random() * 800), this.player);
+        this.enemies.add(enemy);
+      }
     }
 
     if (Math.random() < .0001) {
       this.birdSpawnChance += 0.05;
       this.boulderSpawnChance += 0.05;
+      this.seekerSpawnChance += 0.05;
     }
 
     this.physics.arcade.overlap(this.enemies, this.bullets, this.damageEnemy, null, this);
@@ -181,17 +204,11 @@ export default class Game extends Phaser.State {
     enemyRef.kill();
 
     if (this.player.health.current <= 0) {
-
-      console.log(this.highScoreList.length);
-
       if (this.score > this.lowestScore || this.lowestScore === undefined || this.highScoreList.length < 5) {
-
         this.game.state.start('newHighScore', 1, 1, this.score);
-
       }
       else {
         this.game.state.start('gameOver', 1, 1, this.score);
-
       }
     }
   }

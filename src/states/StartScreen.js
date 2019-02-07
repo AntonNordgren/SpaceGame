@@ -4,7 +4,7 @@ export default class StartScreen extends Phaser.State {
     }
 
     create() {
-        this.bg = this.add.tileSprite(0, 0, 1024, 768, 'space2');
+        this.bg = this.add.tileSprite(0, 0, 1024, 768, 'startScreenBG');
         this.startButton = this.game.add.button(this.game.world.centerX, this.game.height / 3, 'startButton', () => {
             this.game.state.start('game');
         }, this, 1, 1, 1);

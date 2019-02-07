@@ -5,12 +5,13 @@
 }
 
 body {
-    background-color: rgb(14, 10, 39);
+    background: url('assets/images/space-minimalism-hd-4k.jpg');
 }
 
 #game * {
     position: relative;
-    border: solid white 2px;
+    border: solid white 4px;
+    border-radius: 10px;
     margin: auto;
-    top: 50px;
+    top: 75px;
 }

@@ -11,7 +11,7 @@ export default class Boulder extends Phaser.Sprite {
         this.rotationSpeed = 4;
         this.fallSpeed = 3;
 
-        this.body.setSize(95, 95, 0, 5);
+        this.body.setSize(75, 75, 0, 5);
     }
 
     update() {

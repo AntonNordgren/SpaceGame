@@ -25,8 +25,6 @@ export default class NewHighScore extends Phaser.State {
             { font: "100px Arial", align: "center", fill: "#FFF" });
         HighScoreText.anchor.set(0.5);
 
-        // console.log(PhaserInput.Plugin);
-
         this.inputField = this.game.add.inputField(this.game.world.centerX - 80, this.game.world.centerY - 50, {
             font: '18px Arial',
             fill: '#212121',
@@ -38,7 +36,6 @@ export default class NewHighScore extends Phaser.State {
             borderRadius: 6,
             placeHolder: 'Enter Name',
         });
-
 
         this.submitButton = this.game.add.button(this.game.world.centerX, this.game.height - 100, 'submitButton', () => {
 
