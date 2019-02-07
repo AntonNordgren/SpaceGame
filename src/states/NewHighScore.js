@@ -86,7 +86,7 @@ export default class NewHighScore extends Phaser.State {
 
         }, this, 1, 1, 1);
         this.submitButton.anchor.set(0.5);
-        this.submitButton.scale.setTo(.2);
+        this.submitButton.scale.setTo(.3);
 
     }
 
