@@ -1,5 +1,5 @@
 import Player from "../prefabs/Player.js";
-import Bird from "../prefabs/Bird.js";
+import Ufo from "../prefabs/Ufo.js";
 import NumberBox from "../prefabs/NumberBox.js";
 import Boulder from "../prefabs/Boulder.js";
 import Seeker from "../prefabs/Seeker.js";
@@ -11,6 +11,10 @@ export default class Game extends Phaser.State {
   }
 
   create() {
+
+    this.testSecond = 0;
+
+    this.spawnTimer = 10;
 
     this.highScoreList = [];
     this.highestScore;
@@ -55,14 +59,8 @@ export default class Game extends Phaser.State {
         snapshot.forEach((player) => {
           this.highScoreList.push(player.val());
         });
-  
-        console.log(this.highScoreList);
-  
         this.highestScore = this.findHighestScore(this.highScoreList);
         this.lowestScore = this.findLowestScore(this.highScoreList);
-  
-        console.log("Highest: " + this.highestScore);
-        console.log("Lowest: " + this.lowestScore);
       }
       else {
         this.highestScore = undefined;
@@ -72,9 +70,9 @@ export default class Game extends Phaser.State {
 
     });
 
-    this.birdSpawnChance = .01;
-    this.boulderSpawnChance = .01;
-    this.seekerSpawnChance = .01;
+    this.birdSpawnChance = .001;
+    this.boulderSpawnChance = .001;
+    this.seekerSpawnChance = .001;
     this.score = 0;
 
     this.game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -86,11 +84,11 @@ export default class Game extends Phaser.State {
 
     this.enemies = this.add.group();
 
-    this.birdExplosions = this.game.add.emitter(0, 1, 100);
-    this.birdExplosions.makeParticles('feather');
-    this.birdExplosions.minParticleScale = 0.1;
-    this.birdExplosions.maxParticleScale = 0.3;
-    this.birdExplosions.setAlpha(1, .5, 2000);
+    this.seekerExplosions = this.game.add.emitter(0, 1, 100);
+    this.seekerExplosions.makeParticles('tinyRock');
+    this.seekerExplosions.minParticleScale = 0.1;
+    this.seekerExplosions.maxParticleScale = 0.3;
+    this.seekerExplosions.setAlpha(1, .5, 3000);
 
     this.boulderExplosions = this.game.add.emitter(0, 1, 100);
     this.boulderExplosions.makeParticles('smallRock');
@@ -102,13 +100,28 @@ export default class Game extends Phaser.State {
     this.UILayer = this.add.group();
     this.UILayer.add(this.scoreField);
 
-    this.game.load.audio('chicken', 'assets/audio/chicken.mp3');
-    this.chicken = this.game.add.audio('chicken');
-    this.chicken.volume = .05;
+    this.game.load.audio('static', 'assets/audio/seekerDeathSound.mp3');
+    this.seekerDeathSound = this.game.add.audio('static');
+    this.seekerDeathSound.volume = .5;
+
+    this.game.load.audio('ufoDeath', 'assets/audio/ufoDeath.mp3');
+    this.ufoDeathSound = this.game.add.audio('ufoDeath');
+    this.ufoDeathSound.volume = .5;
 
     this.game.load.audio('explosion', 'assets/audio/explosion.mp3');
     this.explosion = this.game.add.audio('explosion');
     this.explosion.volume = .25;
+
+    this.game.load.audio('hit', 'assets/audio/hitSound.mp3');
+    this.hitSound = this.game.add.audio('hit');
+    this.hitSound.volume = .2;
+
+    this.game.time.events.loop(Phaser.Timer.SECOND * this.spawnTimer, () => {
+      this.birdSpawnChance += 0.001;
+      this.boulderSpawnChance += 0.001;
+      this.seekerSpawnChance += 0.001;
+    }, this);
+
   }
 
   update() {
@@ -119,10 +132,10 @@ export default class Game extends Phaser.State {
       let side = Math.random();
 
       if (side <= .5) {
-        this.enemies.add(new Bird(this.game, -300, Math.random() * this.game.height, 'right'));
+        this.enemies.add(new Ufo(this.game, -300, Math.random() * this.game.height, 'right'));
       }
       else {
-        this.enemies.add(new Bird(this.game, this.game.width + 100, Math.random() * this.game.height, 'left'));
+        this.enemies.add(new Ufo(this.game, this.game.width + 100, Math.random() * this.game.height, 'left'));
       }
 
     }
@@ -138,28 +151,22 @@ export default class Game extends Phaser.State {
       let enemy;
       let side = Math.random();
 
-      if(side <= .25) {
+      if (side <= .25) {
         enemy = new Seeker(this.game, (Math.random() * 800), -100, this.player);
         this.enemies.add(enemy);
       }
-      else if(side <= .5 && side >= .25) {
+      else if (side <= .5 && side >= .25) {
         enemy = new Seeker(this.game, (Math.random() * 800), this.game.height + 100, this.player);
         this.enemies.add(enemy);
       }
-      else if(side <= .75 && side >= .5) {
+      else if (side <= .75 && side >= .5) {
         enemy = new Seeker(this.game, -100, (Math.random() * 800), this.player);
         this.enemies.add(enemy);
       }
-      else if(side <= 1 && side >= .75) {
+      else if (side <= 1 && side >= .75) {
         enemy = new Seeker(this.game, this.game.width + 100, (Math.random() * 800), this.player);
         this.enemies.add(enemy);
       }
-    }
-
-    if (Math.random() < .0001) {
-      this.birdSpawnChance += 0.05;
-      this.boulderSpawnChance += 0.05;
-      this.seekerSpawnChance += 0.05;
     }
 
     this.physics.arcade.overlap(this.enemies, this.bullets, this.damageEnemy, null, this);
@@ -174,6 +181,8 @@ export default class Game extends Phaser.State {
 
   damageEnemy(enemy, bullet) {
 
+    this.hitSound.play();
+
     if (enemy.key === 'boulder') {
       this.explosion.play();
 
@@ -182,13 +191,21 @@ export default class Game extends Phaser.State {
 
       this.boulderExplosions.explode(1000, 15);
     }
-    else if (enemy.key === 'bird') {
-      this.chicken.play();
+    else if (enemy.key === 'seeker') {
+      this.seekerDeathSound.play();
 
-      this.birdExplosions.x = enemy.x;
-      this.birdExplosions.y = enemy.y;
+      this.seekerExplosions.x = enemy.x;
+      this.seekerExplosions.y = enemy.y;
 
-      this.birdExplosions.explode(1000, 10);
+      this.seekerExplosions.explode(1000, 10);
+    }
+    else if (enemy.key === 'enemyUfo') {
+      this.ufoDeathSound.play();
+
+      this.seekerExplosions.x = enemy.x;
+      this.seekerExplosions.y = enemy.y;
+
+      this.seekerExplosions.explode(1000, 10);
     }
 
     enemy.kill();

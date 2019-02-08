@@ -41,6 +41,10 @@ export default class Preload {
     this.load.audio('pew', 'assets/audio/pew.mp3');
 
     this.load.audio('explosion', 'assets/audio/explosion.mp3');
+    this.load.audio('static', 'assets/audio/seekerDeathSound.mp3');
+    this.load.audio('ufoDeath', 'assets/audio/ufoDeath.mp3');
+
+    this.load.audio('hit', 'assets/audio/hitSound.mp3');
 
     this.load.image('boulder', 'assets/images/boulder.png');
     this.load.image('smallRock', 'assets/images/smallRock.png');
@@ -60,6 +64,7 @@ export default class Preload {
     this.load.image('startScreenBG', 'assets/images/space.png');
 
     this.load.image('enemyUfo', 'assets/images/enemyUfo.png');
+    this.load.image('tinyRock', 'assets/images/tinyRock.png');
 
     //staaaart load
     this.load.start();
