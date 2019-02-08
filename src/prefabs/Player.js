@@ -26,7 +26,7 @@ export default class Player extends Phaser.Sprite {
     this.pew = this.game.add.audio('pew');
     this.pew.volume = .05;
 
-    this.health = { current: 1, max: 1 };
+    this.health = { current: 3, max: 3 };
 
     this.scale.setTo(.6, .6);
     this.body.setSize(60, 60, 0, 0);

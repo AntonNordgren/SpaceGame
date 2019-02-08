@@ -66,6 +66,9 @@ export default class Preload {
     this.load.image('enemyUfo', 'assets/images/enemyUfo.png');
     this.load.image('tinyRock', 'assets/images/tinyRock.png');
 
+    this.load.image('health_bar', 'assets/images/health_bar.png');
+    this.load.image('health_holder', 'assets/images/health_holder.png');
+
     //staaaart load
     this.load.start();
   }

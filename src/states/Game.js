@@ -1,6 +1,7 @@
 import Player from "../prefabs/Player.js";
 import Ufo from "../prefabs/Ufo.js";
 import NumberBox from "../prefabs/NumberBox.js";
+import HealthBar from "../prefabs/Healthbar.js";
 import Boulder from "../prefabs/Boulder.js";
 import Seeker from "../prefabs/Seeker.js";
 
@@ -11,11 +12,7 @@ export default class Game extends Phaser.State {
   }
 
   create() {
-
-    this.testSecond = 0;
-
     this.spawnTimer = 10;
-
     this.highScoreList = [];
     this.highestScore;
     this.lowestScore;
@@ -54,7 +51,6 @@ export default class Game extends Phaser.State {
     }
 
     this.firebase.database().ref('/players').orderByChild("score").once("value").then((snapshot) => {
-
       if (snapshot.val() != null) {
         snapshot.forEach((player) => {
           this.highScoreList.push(player.val());
@@ -66,8 +62,6 @@ export default class Game extends Phaser.State {
         this.highestScore = undefined;
         this.lowestScore = undefined;
       }
-
-
     });
 
     this.birdSpawnChance = .001;
@@ -96,10 +90,6 @@ export default class Game extends Phaser.State {
     this.boulderExplosions.maxParticleScale = 0.3;
     this.boulderExplosions.setAlpha(1, .5, 2000);
 
-    this.scoreField = new NumberBox(this.game, "circle", 0);
-    this.UILayer = this.add.group();
-    this.UILayer.add(this.scoreField);
-
     this.game.load.audio('static', 'assets/audio/seekerDeathSound.mp3');
     this.seekerDeathSound = this.game.add.audio('static');
     this.seekerDeathSound.volume = .5;
@@ -122,6 +112,19 @@ export default class Game extends Phaser.State {
       this.seekerSpawnChance += 0.001;
     }, this);
 
+    this.setupUI();
+
+  }
+
+  setupUI() {
+
+    this.UILayer = this.add.group();
+
+    this.scoreField = new NumberBox(this.game, "circle", 0);
+    this.UILayer.add(this.scoreField);
+
+    this.healthBar = new HealthBar(this.game, 120, 40, "health_bar", "health_holder");
+    this.UILayer.add(this.healthBar);
   }
 
   update() {
@@ -218,6 +221,7 @@ export default class Game extends Phaser.State {
 
   damagePlayer(playerRef, enemyRef) {
     this.player.damage(1);
+    this.healthBar.setValue(this.player.health.current / this.player.health.max);
     enemyRef.kill();
 
     if (this.player.health.current <= 0) {
