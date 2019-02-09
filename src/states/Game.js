@@ -64,9 +64,9 @@ export default class Game extends Phaser.State {
       }
     });
 
-    this.birdSpawnChance = .001;
-    this.boulderSpawnChance = .001;
-    this.seekerSpawnChance = .001;
+    this.birdSpawnChance = .003;
+    this.boulderSpawnChance = .003;
+    this.seekerSpawnChance = .003;
     this.score = 0;
 
     this.game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -105,6 +105,14 @@ export default class Game extends Phaser.State {
     this.game.load.audio('hit', 'assets/audio/hitSound.mp3');
     this.hitSound = this.game.add.audio('hit');
     this.hitSound.volume = .2;
+
+    this.game.load.audio('gameOver', 'assets/audio/gameover.mp3');
+    this.gameOverSound = this.game.add.audio('gameOver');
+    this.gameOverSound.volume = .5;
+
+    this.game.load.audio('playerHit', 'assets/audio/damageTaken.mp3');
+    this.damageTaken = this.game.add.audio('playerHit');
+    this.damageTaken.volume = .5;
 
     this.game.time.events.loop(Phaser.Timer.SECOND * this.spawnTimer, () => {
       this.birdSpawnChance += 0.001;
@@ -220,11 +228,15 @@ export default class Game extends Phaser.State {
   }
 
   damagePlayer(playerRef, enemyRef) {
+    this.damageTaken.play();
     this.player.damage(1);
     this.healthBar.setValue(this.player.health.current / this.player.health.max);
     enemyRef.kill();
 
     if (this.player.health.current <= 0) {
+
+      this.gameOverSound.play();
+
       if (this.score > this.lowestScore || this.lowestScore === undefined || this.highScoreList.length < 5) {
         this.game.state.start('newHighScore', 1, 1, this.score);
       }

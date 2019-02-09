@@ -44,6 +44,9 @@ export default class Preload {
     this.load.audio('static', 'assets/audio/seekerDeathSound.mp3');
     this.load.audio('ufoDeath', 'assets/audio/ufoDeath.mp3');
 
+    this.load.audio('gameOver', 'assets/audio/gameover.mp3');
+    this.load.audio('playerHit', 'assets/audio/damageTaken.mp3');
+
     this.load.audio('hit', 'assets/audio/hitSound.mp3');
 
     this.load.image('boulder', 'assets/images/boulder.png');

@@ -7,6 +7,7 @@ export default class HealthBar extends Phaser.Group {
 
         this.bar = this.create(0, 0, barGraphic);
         this.holder = this.create(0, 0, holderGraphic);
+        this.scale.setTo(.75);
     }
 
     setValue(value) {
