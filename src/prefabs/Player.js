@@ -11,7 +11,6 @@ export default class Player extends Phaser.Sprite {
     
     this.speed = 200;
     this.bulletSpeed = 1500;
-    this.anchor.setTo(.5, .5);
 
     this.bullets = bullets;
     this.bulletGate = 0;
@@ -30,7 +29,7 @@ export default class Player extends Phaser.Sprite {
 
     this.scale.setTo(.6, .6);
     this.body.setSize(60, 60, 0, 0);
-
+    this.anchor.setTo(.5, .5);
   }
 
   update() {
@@ -61,20 +60,22 @@ export default class Player extends Phaser.Sprite {
       let bullet = this.bullets.getFirstDead();
       
       if (bullet) {
-        bullet.x = this.x;
-        bullet.y = this.y;
+        console.log('If');
+        bullet.x = this.x - 5;
+        bullet.y = this.y - 5;
         bullet.revive();
         this.pew.play();
       }
       else {
+        console.log('Else');
         bullet = this.bullets.create(this.x, this.y, "playerBullet");
         this.game.physics.enable(bullet, Phaser.Physics.ARCADE);
         bullet.outOfBoundsKill = true;
         bullet.checkWorldBounds = true;
         this.pew.play();
       }
-      this.game.physics.arcade.moveToPointer(bullet, this.bulletSpeed);
 
+      this.game.physics.arcade.moveToPointer(bullet, this.bulletSpeed);
       this.bulletGate = this.game.time.now + this.shotInterval;
     }
   }
