@@ -25,7 +25,7 @@ export default class HighScore extends Phaser.State {
             });
             this.highScoreList.reverse();
 
-            let textStyle = { font: "50px Arial", align: "center", fill: "yellow" };
+            let textStyle = { font: "50px Arial", align: "center", fill: "#FFF" };
             let indentation = 130;
             let rank = 1;
 

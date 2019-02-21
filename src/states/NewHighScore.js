@@ -19,13 +19,17 @@ export default class NewHighScore extends Phaser.State {
             this.firebase.initializeApp(this.config);
         }
 
-        this.bg = this.add.tileSprite(0, 0, 1024, 768, 'purpleSpace');
+        this.bg = this.add.tileSprite(0, 0, 1024, 768, 'newHighScoreBg');
 
         let HighScoreText = this.game.add.text(this.game.world.centerX, this.game.world.centerY - 150, "HighScore!",
             { font: "100px Arial", align: "center", fill: "#FFF" });
         HighScoreText.anchor.set(0.5);
 
-        this.inputField = this.game.add.inputField(this.game.world.centerX - 80, this.game.world.centerY - 50, {
+        let scoreText = this.game.add.text(this.game.world.centerX, this.game.world.centerY - 30, "Your Score: " + this.highScore,
+            { font: "50px Arial", align: "center", fill: "#fff" });
+        scoreText.anchor.set(0.5);
+
+        this.inputField = this.game.add.inputField(this.game.world.centerX - 83, this.game.world.centerY + 40, {
             font: '18px Arial',
             fill: '#212121',
             fontWeight: 'bold',
@@ -38,8 +42,6 @@ export default class NewHighScore extends Phaser.State {
         });
 
         this.submitButton = this.game.add.button(this.game.world.centerX, this.game.height - 100, 'submitButton', () => {
-
-            console.log(this.inputField.value);
 
             if (this.inputField.value != "") {
                 this.firebase.database().ref('/players').push({
@@ -58,8 +60,6 @@ export default class NewHighScore extends Phaser.State {
                     
                     this.highScoreList.reverse();
                     this.firebase.database().ref('/players').remove();
-                    
-                    console.log(this.highScoreList.length);
 
                     if(this.highScoreList.length < 5) {
                         for (let i = 0; i < this.highScoreList.length; i++) {

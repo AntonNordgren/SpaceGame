@@ -60,14 +60,12 @@ export default class Player extends Phaser.Sprite {
       let bullet = this.bullets.getFirstDead();
       
       if (bullet) {
-        console.log('If');
         bullet.x = this.x - 5;
         bullet.y = this.y - 5;
         bullet.revive();
         this.pew.play();
       }
       else {
-        console.log('Else');
         bullet = this.bullets.create(this.x, this.y, "playerBullet");
         this.game.physics.enable(bullet, Phaser.Physics.ARCADE);
         bullet.outOfBoundsKill = true;

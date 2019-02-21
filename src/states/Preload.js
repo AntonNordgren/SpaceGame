@@ -30,13 +30,7 @@ export default class Preload {
 
     this.load.image('heroship', 'assets/images/heroship.png');
 
-    this.load.spritesheet('bird', 'assets/images/bird.png', 184, 169);
-
     this.load.image('circle', 'assets/images/circle.png');
-
-    this.load.image('feather', 'assets/images/feather.png');
-
-    this.load.audio('chicken', 'assets/audio/chicken.mp3');
 
     this.load.audio('pew', 'assets/audio/pew.mp3');
 
@@ -57,6 +51,9 @@ export default class Preload {
     this.load.image('redSpace', 'assets/images/ulukai/10.png');
 
     this.load.image('highScoreBg', 'assets/images/ulukai/3.png');
+
+    this.load.image('newHighScoreBg', 'assets/images/ulukai/6.png');
+    
     this.load.image('highscoreButton', 'assets/images/highscoreButton.png');
 
     this.load.image('backButton', 'assets/images/backButton.png');
